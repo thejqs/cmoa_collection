@@ -11,7 +11,7 @@ And we can learn a few things rather quickly:
 * Only five are listed as being on view, all in the 'Art Before 1300' Gallery
 * Nearly half are Italian in origin
 * All belong to the Decorative Arts and Design department
-* Silk and velvet figure prominently as media in this data set
+* Silk and velvet figure prominently as media in this dataset
 * And sometimes, our anonymous donors have named co-donors: the Estate of John Henry Craner, Robert S. Waters Charitable Trust Fund, Women's Committee Fund
 
 For now, know that with `pipenv` installed (`brew install pipenv`, perhaps?), an environment setup and then installing the dependencies in the lockfiles here, you're ready to add in the collections `csv` from the CMOA repo. From there, you can use Pandas and a Jupyter notebook to explore the data yourself, or use the `unknowns_to_sqlite_loader.py` script to prepare the data to become a `Datasette` API.
