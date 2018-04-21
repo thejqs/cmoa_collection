@@ -4,7 +4,7 @@ But deeply fun to explore. As an excuse to try out a project involving [`pipenv`
 
 CMOA helpfully makes a decent amount of [data public](https://github.com/cmoa/collection) about its collections. And while the museum doesn't update things on GitHub all that often, we have the added benefit(?) of the collection-search tools on their website being down at the moment. So we can explore some of the data even while the public can't.
 
-![Like I said.](https://www.dropbox.com/s/0q1ajtyp0pija5w/Screenshot%202018-04-21%2016.37.11.png?dl=0)
+![Like I said.](https://raw.githubusercontent.com/thejqs/cmoa_collection/master/search_down.png)
 
 What's here so far is a small dataset that kind of amuses me: items with both unknown creators and anonymous donors. So often something is in a museum because of its provenance or its story. And here we largely have neither.
 
