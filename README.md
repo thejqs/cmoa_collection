@@ -16,8 +16,8 @@ And we can learn a few things rather quickly:
 * Silk and velvet figure prominently as media in this dataset
 * And sometimes, our anonymous donors have named co-donors: the Estate of John Henry Craner, Robert S. Waters Charitable Trust Fund, Women's Committee Fund
 
-For now, know that with `pipenv` installed (`brew install pipenv`, perhaps?), an environment setup and then installing the dependencies in the lockfiles here, you're ready to clone down the CMOA repo to get at the collections `csv`. From there, you can use Pandas and a Jupyter notebook to explore the data yourself, or reproduce the `csv` here with `unknown_by_anonymous.py`.
+For now, know that with `pipenv` installed (`brew install pipenv`, perhaps?) and an environment setup, you can just clone down this project. Install the dependencies in the lockfiles here and everything should be in place, including the original CMOA data. From there, you can use Pandas and a Jupyter notebook to explore the data yourself, or reproduce the `csv` here with ```python unknown_by_anonymous.py```. (Or, like, just use the one provided.)
 
-After that, if you're so inclined, use the `unknowns_to_sqlite_loader.py` script to prepare the data to become a `Datasette` API.
+After that, if you're so inclined, use the ```python unknowns_to_sqlite_loader.py``` script to prepare the data to become a `Datasette` API or just use the `.db` file already provided in the `sqlite` directory.
 
 Meantime, I'll keep hunting around my own self.
