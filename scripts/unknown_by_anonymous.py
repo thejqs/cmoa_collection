@@ -1,7 +1,8 @@
 #!usr/bin/env python3
 
+import sys
 import csv
-from collections import namedtuple
+from collections import namedtuple, OrderedDict
 
 Data = namedtuple(
     'Data',
@@ -9,24 +10,45 @@ Data = namedtuple(
 )
 
 
-def get_unknown_by_anonymous(in_file):
-    with open(in_file) as f:
+def get_data(filename, has_headers=False):
+    with open(filename) as f:
         reader = csv.DictReader(f)
-        # separate headers and data to persist both for writing
-        headers = reader.fieldnames
-        return Data(headers, list(reader))
+        if has_headers:
+            # separate headers and data to persist both for writing
+            headers = reader.fieldnames
+        else:
+            # keep data types the same even if they're not present
+            headers = OrderedDict()
+        return Data(
+            headers,
+            list(reader)
+        )
 
 
-def write_unknown_by_anonymous(out_file, data):
-        writer = csv.DictWriter(open(out_file, 'w'), fieldnames=data.headers)
+def find_unknown_by_anonymous(data):
+    for row in data:
+        if ('unknown' in row['full_name'].lower() or row['full_name'] is None) and 'anonymous' in row['credit_line'].lower():
+            yield row
+
+
+def write_unknown_by_anonymous(filename, data, has_headers=False):
+    if has_headers:
+        writer = csv.DictWriter(open(filename, 'w'), fieldnames=data.headers)
         writer.writeheader()
-        for row in data.rows:
-            if ('unknown' in row['full_name'].lower() or row['full_name'] is None) and 'anonymous' in row['credit_line'].lower():
-                writer.writerow(row)
+    else:
+        writer = csv.writer(open(out_file, 'w'))
+
+    rows = find_unknown_by_anonymous(data.rows)
+    for row in rows:
+        writer.writerow(row)
+
+
+def run_the_jewels(infile, outfile, has_headers=False):
+    data = get_data(infile, has_headers)
+    write_unknown_by_anonymous(outfile, data, has_headers)
 
 
 if __name__ == '__main__':
-    in_file = 'collection/cmoa.csv'
-    out_file = 'data_from_code/unknown_by_anonymous.csv'
-    data = get_unknown_by_anonymous(in_file)
-    write_unknown_by_anonymous(out_file, data)
+    infile = 'collection/cmoa.csv'
+    outfile = 'data_from_code/unknown_by_anonymous.csv'
+    run_the_jewels(infile, outfile, True)
