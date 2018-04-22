@@ -18,9 +18,10 @@ Connection = namedtuple(
 
 class SQLiteLoader:
 
-    def __init__(self, infile, target_db):
+    def __init__(self, infile, target_db, tablename=None):
         self.infile = infile
         self.db = target_db
+        self.tablename = tablename
 
     def prepare_csv_data(self, filename, has_headers=False):
         with open(filename) as f:
@@ -43,14 +44,14 @@ class SQLiteLoader:
             db.cursor()
         )
 
-    def write_data_to_sqlite(self, data, headers, db_connection):
+    def write_data_to_sqlite(self, data, headers, tablename, db_connection):
         try:
             db_connection.cur.execute(
-                'CREATE TABLE IF NOT EXISTS unknowns_from_anonymous {headers}'
-                .format(headers=headers)
+                'CREATE TABLE IF NOT EXISTS {tablename} {headers}'
+                .format(tablename=tablename, headers=headers)
             )
         except sqlite3.OperationalError:
-            sys.exit('OH NO: No headers appear to be present for this dataset. No headers, no db table.')
+            sys.exit('OH NO: We seem to be missing headers for this dataset or a name for the table. No headers or no name, no db table.')
 
         db_connection.cur.executemany(
             'INSERT INTO unknowns_from_anonymous VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
@@ -59,11 +60,11 @@ class SQLiteLoader:
         db_connection.db.commit()
         db_connection.db.close()
 
-    def run_the_jewels(self, filename, target_db, has_headers):
+    def run_the_jewels(self, filename, target_db, tablename, has_headers):
         data = self.prepare_csv_data(filename, has_headers)
         if data.headers:
             connection = self.connect_to_db(target_db)
-            self.write_data_to_sqlite(data.rows, data.headers, connection)
+            self.write_data_to_sqlite(data.rows, data.headers, tablename, connection)
         else:
             sys.exit('YIKES: Not seeing any headers present. Without headers, we can\'t make a database table')
 
@@ -71,5 +72,6 @@ class SQLiteLoader:
 if __name__ == '__main__':
     filename = 'data_from_code/unknown_by_anonymous.csv'
     target_db = 'sqlite/cmoa_unknowns.db'
-    loader = SQLiteLoader(filename, target_db)
-    loader.run_the_jewels(loader.infile, loader.db, True)
+    tablename = 'unknowns_from_anonymous'
+    loader = SQLiteLoader(filename, target_db, tablename)
+    loader.run_the_jewels(loader.infile, loader.db, loader.tablename, True)
