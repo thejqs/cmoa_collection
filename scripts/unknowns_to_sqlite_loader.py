@@ -53,10 +53,9 @@ class SQLiteLoader:
         except sqlite3.OperationalError:
             sys.exit('OH NO: We seem to be missing headers for this dataset or a name for the table. No headers or no name, no db table.')
 
-        db_connection.cur.executemany(
-            'INSERT INTO unknowns_from_anonymous VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            data
-        )
+        header_count = len(headers)
+        sql = 'INSERT INTO {tablename} VALUES('.format(tablename=tablename) + ','.join(header_count * ['?']) + ')'
+        db_connection.cur.executemany(sql, data)
         db_connection.db.commit()
         db_connection.db.close()
 
