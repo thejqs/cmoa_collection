@@ -31,12 +31,12 @@ def find_unknown_by_anonymous(data):
             yield row
 
 
-def write_unknown_by_anonymous(filename, data, has_headers=False):
-    if has_headers:
+def write_unknown_by_anonymous(filename, data):
+    if data.headers:
         writer = csv.DictWriter(open(filename, 'w'), fieldnames=data.headers)
         writer.writeheader()
     else:
-        writer = csv.writer(open(out_file, 'w'))
+        writer = csv.writer(open(filename, 'w'))
 
     rows = find_unknown_by_anonymous(data.rows)
     for row in rows:
@@ -45,7 +45,7 @@ def write_unknown_by_anonymous(filename, data, has_headers=False):
 
 def run_the_jewels(infile, outfile, has_headers=False):
     data = get_data(infile, has_headers)
-    write_unknown_by_anonymous(outfile, data, has_headers)
+    write_unknown_by_anonymous(outfile, data)
 
 
 if __name__ == '__main__':
