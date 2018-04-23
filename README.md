@@ -1,6 +1,6 @@
 # Museums are a little weird.
 
-But deeply fun to explore. As an excuse to try out a project involving [`pipenv`](https://docs.pipenv.org/) and [`Datasette`](https://github.com/simonw/datasette), I've decided to play around a bit with some of the collections data from the Carnegie Museum of Art.
+But deeply fun to explore. As an excuse to try out a `Python 3.6` project involving [`pipenv`](https://docs.pipenv.org/) and [`Datasette`](https://github.com/simonw/datasette), I've decided to play around a bit with some of the collections data from the Carnegie Museum of Art.
 
 CMOA helpfully makes a decent amount of [data public](https://github.com/cmoa/collection) about its collections. And while the museum doesn't update things on GitHub all that often, we have the added benefit(?) of the collection-search tools on their website being down at the moment. So we can explore some of the data even while the public can't.
 
