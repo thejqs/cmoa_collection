@@ -20,7 +20,7 @@ For now, know that with `pipenv` installed (`brew install pipenv`, perhaps?) and
 
 From there, you can use Pandas and a Jupyter notebook to explore the data yourself, or reproduce the smaller subset `csv` provided in the data_from_code directory with `python scripts/unknown_by_anonymous.py` from the command line while in the top-level directory. (Or, like, just use the file provided.)
 
-Also in that data_from_code directory is a `csv` of just the items in the collection with unknown artists. It's a bit larger and thus there are more nooks and crannies to explore.
+Also in that data_from_code directory is a `csv` of just the items in the collection with unknown artists. It's a bit larger -- almost 15 percent of the total collection -- and thus there are more nooks and crannies to explore.
 
 After that, if you're so inclined, run `python scripts/unknowns_to_sqlite_loader.py` from the top-level directory on either `csv` to prepare the data to become a `Datasette` API -- or just use the `.db` file for either that's already in the `sqlite` directory.
 
